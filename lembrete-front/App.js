@@ -1,26 +1,23 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import ListaLembretes from './ListaLembretes';
 
 export default class App extends React.Component {
+
+  state = {
+    lembretes: []
+  }
+
+  componentDidMount(){
+    fetch('https://devreminder.herokuapp.com/lembrete', {method: 'GET'})
+    .then(T => T.json())
+    .then(lembretes => this.setState(lembretes))
+  }
+
   render() {
-    return (
-      <View style={styles.container}>
-      <Text>Lembrete</Text>
-      <Button title="Adicionar" onPress={()=> console.log('criou lembrete')}/>
-       <View>
-          <View>
-            <Text>Teste</Text>
-            <Button title="Editar" onPress={()=> console.log('Editar lembrete')}/>
-            <Button title="Excluir" onPress={()=> console.log('Excluir lembrete')}/>
-          </View>
-          <View>
-            <Text>Teste 2</Text>
-            <Button title="Editar" onPress={()=> console.log('Editar lembrete')}/>
-            <Button title="Excluir" onPress={()=> console.log('Excluir lembrete')}/>
-          </View>
-        </View>
-      </View>
-    );
+
+      <ListaLembretes/>
+      
   }
 }
 
